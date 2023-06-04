@@ -1,4 +1,6 @@
-package org.zagvladimir.lab3;
+package org.zagvladimir.lab3.child1;
+
+import org.zagvladimir.lab3.parent.GameTheme;
 
 import java.util.Scanner;
 

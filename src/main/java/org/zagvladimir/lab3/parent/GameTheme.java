@@ -1,4 +1,4 @@
-package org.zagvladimir.lab3;
+package org.zagvladimir.lab3.parent;
 
 import java.util.Scanner;
 

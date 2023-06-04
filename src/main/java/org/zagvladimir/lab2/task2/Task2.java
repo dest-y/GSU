@@ -1,4 +1,4 @@
-package org.zagvladimir.lab2;
+package org.zagvladimir.lab2.task2;
 
 import java.util.Arrays;
 import java.util.Scanner;
