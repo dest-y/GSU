@@ -1,12 +1,16 @@
 package org.zagvladimir.lab2;
 
+import java.util.Scanner;
+
 public class Task1 {
     public static void main(String[] args) {
-        int[] array = {5, 1, 1, 2, 4, 3, 4, 5};
-
-        System.out.println(sum(array));
+        int[] array = arrayInput();
+        System.out.print("Исходный массив: ");
+        printArray(array);
+        calculateProduct(array);
     }
-    private static int sum(int[] array){
+
+    private static void calculateProduct(int[] array) {
         int minIndex = 0;
         int maxIndex = 0;
 
@@ -29,7 +33,33 @@ public class Task1 {
         for (int i = minIndex + 1; i < maxIndex; i++) {
             result *= array[i];
         }
-
-        return result;
+        System.out.println("Индекс минимального элемента = " + minIndex);
+        System.out.println("Индекс максимального элемента = " + maxIndex);
+        System.out.println("Произведение элементов = " + result);
     }
+
+    private static int[] arrayInput() {
+        Scanner sc = new Scanner(System.in);
+        int n;
+        do {
+            System.out.print("Введите размер массива больше 0: ");
+            n = sc.nextInt();
+        } while (n < 0);
+
+        int[] array = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            System.out.print("Введите элемент номер: " + i + ": ");
+            array[i] = sc.nextInt();
+        }
+        return array;
+    }
+
+    private static void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
+    }
+
 }

@@ -1,5 +1,7 @@
 package org.zagvladimir.lab4;
 
+import java.util.Scanner;
+
 public class Task1 {
     private static String[] dictionary = new String[]{
             "ноль",
@@ -15,8 +17,19 @@ public class Task1 {
     };
 
     public static void main(String[] args) {
-        System.out.println(replaceNumber("Это 1, просто 2, текст 3, с цифрами 4."));
-        System.out.println(countAdjacentPairs("ababaacbcbccababaabccccab"));
+        Scanner sc = new Scanner(System.in);
+
+        //abc.example.com
+        System.out.println("Введите текст для задания 1: ");
+        System.out.println(replaceSymbols(sc.nextLine()));
+
+        //это 1 просто 2 текст 3 с 4 цифрами 5 6 7 8 9 0
+        System.out.println("Введите текст для задания 2: ");
+        System.out.println(replaceNumber(sc.nextLine()));
+
+        //ababaacb
+        System.out.println("Введите текст для задания 3: ");
+        System.out.println(countCombinations(sc.nextLine()));
     }
 
     private static String replaceNumber(String text) {
@@ -32,32 +45,31 @@ public class Task1 {
         return resultString.toString();
     }
 
-    public static String countAdjacentPairs(String text) {
+    public static String countCombinations(String text) {
         StringBuilder result = new StringBuilder();
-        int[] counts = new int[26 * 26];
 
         for (int i = 0; i < text.length() - 1; i++) {
-            char first = Character.toLowerCase(text.charAt(i));
-            char second = Character.toLowerCase(text.charAt(i + 1));
+            String combination = text.substring(i, i + 2);
+            int count = 0;
 
-            if (Character.isLetter(first) && Character.isLetter(second)) {
-                int index = (first - 'a') * 26 + (second - 'a');
-                counts[index]++;
-            }
-        }
 
-        for (int i = 0; i < 26; i++) {
-            for (int j = 0; j < 26; j++) {
-                int index = i * 26 + j;
-                char first = (char) (i + 'a');
-                char second = (char) (j + 'a');
-                int count = counts[index];
-
-                if (count > 0) {
-                    result.append(first).append(second).append(": ").append(count).append(" ");
+            for (int j = i; j < text.length() - 1; j++) {
+                if (text.substring(j, j + 2).equals(combination)) {
+                    count++;
                 }
             }
+
+            result.append(combination).append(": ").append(count).append(" ");
         }
+
         return result.toString();
+    }
+
+    private static String replaceSymbols(String input) {
+        if (input.startsWith("abc")) {
+            return "www" + input.substring(3);
+        } else {
+            return input + "zzz";
+        }
     }
 }
