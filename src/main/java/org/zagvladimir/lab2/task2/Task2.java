@@ -3,7 +3,11 @@ package org.zagvladimir.lab2.task2;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class Task2 {
+    private static final Scanner scanner = new Scanner(System.in);
+    private static int[] vector = null;
+
     public static void main(String[] args) {
         int[][] matrix = readMatrix();
 
@@ -17,11 +21,30 @@ public class Task2 {
         printMatrix(matrix);
         System.out.println();
 
-        int[] vector = createVector(matrix);
+        vector = createVector(matrix);
         System.out.println("Вектор B: " + Arrays.toString(vector) + "\n");
 
-        sort(vector);
+        showMenu();
+
         System.out.println("Отсортированный вектор B: " + Arrays.toString(vector));
+    }
+
+    private static void showMenu() {
+        int menu = -1;
+        while (!(menu > 0 && menu < 3)) {
+            System.out.println("""
+                    Выберите метод сортировки
+                    1. sort()
+                    2. пузырьком
+                    """
+            );
+            menu = scanner.nextInt();
+            switch (menu) {
+                case 1 -> sort2(vector);
+                case 2 -> sort(vector);
+                default -> System.out.println("Неверный выбор\n");
+            }
+        }
     }
 
     private static int[] createVector(int[][] matrix) {
@@ -70,9 +93,16 @@ public class Task2 {
         }
     }
 
-    public static int[][] readMatrix() {
-        Scanner scanner = new Scanner(System.in);
+    public static void sort2(int[] array) {
+        Arrays.sort(array);
+        for (int i = 0; i < array.length / 2; i++) {
+            int temp = array[i];
+            array[i] = array[array.length - i - 1];
+            array[array.length - i - 1] = temp;
+        }
+    }
 
+    public static int[][] readMatrix() {
         int size = 0;
 
         while (size <= 0) {
@@ -90,7 +120,6 @@ public class Task2 {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                System.out.print("Элемент [" + i + "][" + j + "]: ");
                 matrix[i][j] = scanner.nextInt();
             }
         }

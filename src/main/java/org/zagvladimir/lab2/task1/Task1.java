@@ -49,7 +49,6 @@ public class Task1 {
         int[] array = new int[n];
 
         for (int i = 0; i < n; i++) {
-            System.out.print("Введите элемент номер: " + i + ": ");
             array[i] = sc.nextInt();
         }
         return array;
