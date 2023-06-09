@@ -19,14 +19,13 @@ public class Task3 {
             int count = 0;
 
             for (int j = i; j < text.length() - 1; j++) {
-                if (text.substring(j, j + 2).equals(combination)) {
+                if (text.substring(j, j + 2).equals(combination) && !result.toString().contains(combination)) {
                     count++;
                 }
             }
-
+            if(count == 0) continue;
             result.append(combination).append(": ").append(count).append(" ");
         }
-
         return result.toString();
     }
 }

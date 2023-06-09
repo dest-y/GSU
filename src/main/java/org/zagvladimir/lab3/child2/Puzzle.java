@@ -39,19 +39,13 @@ public class Puzzle extends GameTheme {
         System.out.print("Choose an option: ");
         int choice = scanner.nextInt();
         switch (choice) {
-            case 1:
-                difficulty = PuzzleDifficulty.EASY;
-                break;
-            case 2:
-                difficulty = PuzzleDifficulty.MEDIUM;
-                break;
-            case 3:
-                difficulty = PuzzleDifficulty.HARD;
-                break;
-            default:
+            case 1 -> difficulty = PuzzleDifficulty.EASY;
+            case 2 -> difficulty = PuzzleDifficulty.MEDIUM;
+            case 3 -> difficulty = PuzzleDifficulty.HARD;
+            default -> {
                 System.out.println("Invalid option. Setting difficulty to EASY.");
                 difficulty = PuzzleDifficulty.EASY;
-                break;
+            }
         }
     }
     @Override
