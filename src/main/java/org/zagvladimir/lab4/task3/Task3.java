@@ -23,7 +23,7 @@ public class Task3 {
                     count++;
                 }
             }
-            if(count == 0) continue;
+            if (count == 0) continue;
             result.append(combination).append(": ").append(count).append(" ");
         }
         return result.toString();
