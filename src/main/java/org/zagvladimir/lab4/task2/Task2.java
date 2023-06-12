@@ -3,7 +3,7 @@ package org.zagvladimir.lab4.task2;
 import java.util.Scanner;
 
 public class Task2 {
-    private static String[] dictionary = new String[]{
+    private static final String[] dictionary = new String[]{
             "ноль",
             "один",
             "два",
@@ -28,8 +28,7 @@ public class Task2 {
         StringBuilder resultString = new StringBuilder();
         for (char ch : text.toCharArray()) {
             if (Character.isDigit(ch)) {
-                int indexOfNumber = Character.getNumericValue(ch);
-                resultString.append(dictionary[indexOfNumber]);
+                resultString.append(dictionary[Character.getNumericValue(ch)]);
             } else {
                 resultString.append(ch);
             }
