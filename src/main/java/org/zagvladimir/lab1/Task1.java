@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Task1 {
     private static double x;
     private static int a, b;
-    private static double u;
 
+    //3 5 5
     public static void main(String[] args) {
         inputValues();
 
@@ -20,25 +20,15 @@ public class Task1 {
     }
 
     private static void func1() {
-        System.out.println(Math.pow(x, 4) * Math.sin(x));
+        System.out.println(Math.cos(x + Math.log(x)) + Math.exp(x));
     }
 
     private static void func2() {
-        double temp = u - Math.pow(x, 2);
-        if (temp >= 0) {
-            System.out.println(Math.sqrt(temp));
-        } else {
-            System.out.println("Ошибка: Недопустимый аргумент для вычисления квадратного корня.");
-        }
+        System.out.println(Math.pow(x, 3) + Math.pow(x, 2) - 15);
     }
 
     private static void func3() {
-        double temp = x - 1;
-        if (temp != 0) {
-            System.out.println(x - 1 + (1 / temp));
-        } else {
-            System.out.println("Ошибка: Деление на ноль.");
-        }
+        System.out.println((x + 5) / Math.tan(Math.PI * x));
     }
 
     static void inputValues() {
@@ -52,9 +42,6 @@ public class Task1 {
 
         System.out.print("Введите значение переменной b: ");
         b = scanner.nextInt();
-
-        System.out.print("Введите значение переменной u: ");
-        u = scanner.nextDouble();
 
         scanner.close();
     }

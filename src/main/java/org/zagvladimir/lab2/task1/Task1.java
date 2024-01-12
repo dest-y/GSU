@@ -7,35 +7,37 @@ public class Task1 {
         int[] array = arrayInput();
         System.out.print("Исходный массив: ");
         printArray(array);
-        calculateProduct(array);
+        sum(array);
     }
 
-    private static void calculateProduct(int[] array) {
-        int minIndex = 0;
-        int maxIndex = 0;
+    private static void sum(int[] array) {
+        int firstZeroIndex = -1;
+        int secondZeroIndex = -1;
 
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] < array[minIndex]) {
-                minIndex = i;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == 0) {
+                if (firstZeroIndex == -1) {
+                    firstZeroIndex = i;
+                } else {
+                    secondZeroIndex = i;
+                    break;
+                }
             }
-            if (array[i] >= array[maxIndex]) {
-                maxIndex = i;
+        }
+
+        if (firstZeroIndex != -1 && secondZeroIndex != -1) {
+            int sum = 0;
+            int startIndex = Math.min(firstZeroIndex, secondZeroIndex) + 1;
+            int endIndex = Math.max(firstZeroIndex, secondZeroIndex);
+
+            for (int i = startIndex; i < endIndex; i++) {
+                sum += Math.abs(array[i]);
             }
+            System.out.println("Сумма модулей элементов между первым и вторым нулевыми элементами: " + sum);
+        } else {
+            System.out.println("В массиве не найдены два нулевых элемента");
         }
 
-        if (minIndex > maxIndex) {
-            int temp = minIndex;
-            minIndex = maxIndex;
-            maxIndex = temp;
-        }
-
-        int result = 1;
-        for (int i = minIndex + 1; i < maxIndex; i++) {
-            result *= array[i];
-        }
-        System.out.println("Индекс минимального элемента = " + minIndex);
-        System.out.println("Индекс максимального элемента = " + maxIndex);
-        System.out.println("Произведение элементов = " + result);
     }
 
     private static int[] arrayInput() {

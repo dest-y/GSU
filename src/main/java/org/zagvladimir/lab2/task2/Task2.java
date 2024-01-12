@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Task2 {
     private static final Scanner scanner = new Scanner(System.in);
     private static int[] vector = null;
+    private static int n, m, a, b;
 
     public static void main(String[] args) {
         int[][] matrix = readMatrix();
@@ -15,13 +16,7 @@ public class Task2 {
         printMatrix(matrix);
         System.out.println();
 
-        transformMatrix(matrix);
-
-        System.out.println("Матрица после изменения:");
-        printMatrix(matrix);
-        System.out.println();
-
-        vector = createVector(matrix);
+        vector = getVectorFromMatrix(matrix);
         System.out.println("Вектор B: " + Arrays.toString(vector) + "\n");
 
         showMenu();
@@ -40,39 +35,33 @@ public class Task2 {
             );
             menu = scanner.nextInt();
             switch (menu) {
-                case 1 -> sort2(vector);
-                case 2 -> sort(vector);
+                case 1 -> Arrays.sort(vector);
+                case 2 -> sortBubble(vector);
                 default -> System.out.println("Неверный выбор\n");
             }
         }
     }
 
-    private static int[] createVector(int[][] matrix) {
-        int maxDiagonalValue = Integer.MIN_VALUE;
-        int rowIndex = 0;
-
-        for (int i = 0; i < matrix.length; i++) {
-            if (matrix[i][i] > maxDiagonalValue) {
-                maxDiagonalValue = matrix[i][i];
-                rowIndex = i;
+    private static int[] getVectorFromMatrix(int[][] matrix) {
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (matrix[i][j] % 2 == 0 && matrix[i][j] >= a && matrix[i][j] <= b) {
+                    count++;
+                }
             }
         }
 
-        int[] vectorB = new int[matrix.length];
-        for (int j = 0; j < matrix.length; j++) {
-            vectorB[j] = matrix[rowIndex][j];
+        int[] vectorB = new int[count];
+        int index = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (matrix[i][j] % 2 == 0 && matrix[i][j] >= a && matrix[i][j] <= b) {
+                    vectorB[index++] = matrix[i][j];
+                }
+            }
         }
         return vectorB;
-    }
-
-    private static void transformMatrix(int[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            int sum = 0;
-            for (int j = 0; j < matrix.length; j++) {
-                sum += matrix[j][i];
-            }
-            matrix[i][i] = sum;
-        }
     }
 
     private static void printMatrix(int[][] matrix) {
@@ -81,10 +70,10 @@ public class Task2 {
         }
     }
 
-    public static void sort(int[] array) {
+    public static void sortBubble(int[] array) {
         for (int i = 0; i < array.length; i++) {
             for (int j = array.length - 1; j > i; j--) {
-                if (array[j] > array[j - 1]) {
+                if (array[j] < array[j - 1]) {
                     int n = array[j];
                     array[j] = array[j - 1];
                     array[j - 1] = n;
@@ -93,36 +82,48 @@ public class Task2 {
         }
     }
 
-    public static void sort2(int[] array) {
-        Arrays.sort(array);
-        for (int i = 0; i < array.length / 2; i++) {
-            int temp = array[i];
-            array[i] = array[array.length - i - 1];
-            array[array.length - i - 1] = temp;
-        }
-    }
 
     public static int[][] readMatrix() {
-        int size = 0;
+        n = readPositiveInt("Введите количество строк матрицы (n): ");
+        m = readPositiveInt("Введите количество столбцов матрицы (m): ");
 
-        while (size <= 0) {
-            System.out.print("Введите размер квадратной матрицы (целое положительное число): ");
-            size = scanner.nextInt();
-
-            if (size <= 0) {
-                System.out.println("Размер матрицы должен быть положительным числом. Пожалуйста, повторите ввод.");
-            }
-        }
-
-        int[][] matrix = new int[size][size];
-
-        System.out.println("Введите элементы матрицы:");
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        int[][] matrix = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Неверный ввод. Пожалуйста, введите целое число.");
+                    scanner.next();
+                }
                 matrix[i][j] = scanner.nextInt();
             }
         }
+
+        a = readInt("Введите значение a: ");
+        b = readInt("Введите значение b: ");
+
         return matrix;
     }
+
+    private static int readPositiveInt(String message) {
+        int input;
+        do {
+            System.out.print(message);
+            while (!scanner.hasNextInt()) {
+                System.out.println("Неверный ввод. Пожалуйста, введите целое число.");
+                scanner.next();
+            }
+            input = scanner.nextInt();
+        } while (input <= 0);
+        return input;
+    }
+
+    private static int readInt(String message) {
+        System.out.print(message);
+        while (!scanner.hasNextInt()) {
+            System.out.println("Неверный ввод. Пожалуйста, введите целое число.");
+            scanner.next();
+        }
+        return scanner.nextInt();
+    }
+
 }
