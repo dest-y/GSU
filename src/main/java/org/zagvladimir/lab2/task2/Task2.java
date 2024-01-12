@@ -10,7 +10,13 @@ public class Task2 {
     private static int n, m, a, b;
 
     public static void main(String[] args) {
+        n = readPositiveInt("Введите количество строк матрицы (n): ");
+        m = readPositiveInt("Введите количество столбцов матрицы (m): ");
+
         int[][] matrix = readMatrix();
+
+        a = readInt("Введите значение a: ");
+        b = readInt("Введите значение b: ");
 
         System.out.println("Исходная матрица:");
         printMatrix(matrix);
@@ -84,8 +90,7 @@ public class Task2 {
 
 
     public static int[][] readMatrix() {
-        n = readPositiveInt("Введите количество строк матрицы (n): ");
-        m = readPositiveInt("Введите количество столбцов матрицы (m): ");
+        System.out.println("Введите элементы матрицы:");
 
         int[][] matrix = new int[n][m];
         for (int i = 0; i < n; i++) {
@@ -97,10 +102,6 @@ public class Task2 {
                 matrix[i][j] = scanner.nextInt();
             }
         }
-
-        a = readInt("Введите значение a: ");
-        b = readInt("Введите значение b: ");
-
         return matrix;
     }
 
